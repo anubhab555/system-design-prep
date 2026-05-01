@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.systemdesign'
+version = '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUnit 5 for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.9.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
+application {
+    mainClass = 'com.systemdesign.ratelimiter.RateLimiterDemo'
+}
+
+// Task to run rate limiter demo
+tasks.register('demoRateLimiter', JavaExec) {
+    group = 'application'
+    description = 'Run the rate limiter demo'
+    mainClass = 'com.systemdesign.ratelimiter.RateLimiterDemo'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// Task to run consistent hashing demo
+tasks.register('demoConsistentHashing', JavaExec) {
+    group = 'application'
+    description = 'Run the consistent hashing demo'
+    mainClass = 'com.systemdesign.consistenthashing.ConsistentHashingDemo'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// Task to run key-value store demo
+tasks.register('demoKeyValueStore', JavaExec) {
+    group = 'application'
+    description = 'Run the key-value store demo'
+    mainClass = 'com.systemdesign.keyvaluestore.KeyValueStoreDemo'
+    classpath = sourceSets.main.runtimeClasspath
+}
