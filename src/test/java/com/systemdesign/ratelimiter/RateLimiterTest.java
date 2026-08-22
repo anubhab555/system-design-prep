@@ -11,7 +11,7 @@ public class RateLimiterTest {
 
     @Test
     public void testFixedWindowCounter() {
-        FixedWindowCounter limiter = new FixedWindowCounter(3, 1000);
+        FixedWindowStrategy limiter = new FixedWindowStrategy(new RateLimiterConfig(3, 1000));
         long time = System.currentTimeMillis();
 
         // First 3 requests should be allowed
@@ -28,7 +28,7 @@ public class RateLimiterTest {
 
     @Test
     public void testSlidingWindowLog() {
-        SlidingWindowLog limiter = new SlidingWindowLog(2, 1000);
+        SlidingWindowLog limiter = new SlidingWindowLog(new RateLimiterConfig(2, 1000));
         long time = System.currentTimeMillis();
 
         // First 2 requests allowed
@@ -44,7 +44,7 @@ public class RateLimiterTest {
 
     @Test
     public void testSlidingWindowCounter() {
-        SlidingWindowCounter limiter = new SlidingWindowCounter(3, 1000);
+        SlidingWindowCounter limiter = new SlidingWindowCounter(new RateLimiterConfig(3, 1000));
         long time = System.currentTimeMillis();
 
         // First 3 requests
@@ -59,7 +59,7 @@ public class RateLimiterTest {
     @Test
     public void testTokenBucket() {
         // 5 tokens per second = 1 token per 200ms
-        TokenBucket limiter = new TokenBucket(5, 5.0);
+        TokenBucketStrategy limiter = new TokenBucketStrategy(new RateLimiterConfig(5, 1000));
         long time = System.currentTimeMillis();
 
         // Burst: 5 requests immediately
@@ -83,7 +83,7 @@ public class RateLimiterTest {
     @Test
     public void testLeakyBucket() {
         // 2 requests/sec leak rate, capacity 4
-        LeakyBucket limiter = new LeakyBucket(4, 2.0);
+        LeakyBucket limiter = new LeakyBucket(new RateLimiterConfig(4, 2000));
         long time = System.currentTimeMillis();
 
         // Fill the bucket
@@ -100,7 +100,7 @@ public class RateLimiterTest {
 
     @Test
     public void testMultipleUsers() {
-        TokenBucket limiter = new TokenBucket(2, 2.0);
+        TokenBucketStrategy limiter = new TokenBucketStrategy(new RateLimiterConfig(2, 1000));
         long time = System.currentTimeMillis();
 
         // Each user gets independent limit
@@ -116,7 +116,7 @@ public class RateLimiterTest {
 
     @Test
     public void testReset() {
-        FixedWindowCounter limiter = new FixedWindowCounter(2, 1000);
+        FixedWindowStrategy limiter = new FixedWindowStrategy(new RateLimiterConfig(2, 1000));
         long time = System.currentTimeMillis();
 
         assertTrue(limiter.allowRequest("user1", time));
@@ -137,12 +137,12 @@ public class RateLimiterTest {
          * Window 2: t=1000+, allows 3 more requests immediately
          * Result: 6 requests in 1ms (violates rate limit)
          */
-        FixedWindowCounter limiter = new FixedWindowCounter(3, 1000);
+        FixedWindowStrategy limiter = new FixedWindowStrategy(new RateLimiterConfig(3, 1000));
         long time = System.currentTimeMillis();
 
         // 3 requests in first window
         for (int i = 0; i < 3; i++) {
-            assertTrue(limiter.allowRequest("user1", time + i * 10));
+            assertTrue(limiter.allowRequest("user1", time + (long) i * 10));
         }
 
         // 3 more requests in second window (boundary)
