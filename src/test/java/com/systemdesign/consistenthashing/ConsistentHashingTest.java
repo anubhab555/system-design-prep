@@ -1,6 +1,9 @@
 package com.systemdesign.consistenthashing;
 
 import org.junit.jupiter.api.Test;
+
+import com.systemdesign.developer_tools.consistenthashing.ConsistentHashingImpl;
+
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 

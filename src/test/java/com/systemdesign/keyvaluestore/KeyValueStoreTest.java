@@ -3,6 +3,9 @@ package com.systemdesign.keyvaluestore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.systemdesign.developer_tools.keyvaluestore.InMemoryKeyValueStore;
+import com.systemdesign.developer_tools.keyvaluestore.ValueRecord;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
