@@ -33,7 +33,7 @@ public class ParkingSpot{
     }
 
     public synchronized Vehicle unparkVehicle(){
-        if(!isAvailable()){
+        if(isAvailable()){
             throw new ParkingException("Spot id" + spotId +"is already empty");
         }
         Vehicle vehicle = this.parkedVehicle;
