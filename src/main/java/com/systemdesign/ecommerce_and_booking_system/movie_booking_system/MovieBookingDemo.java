@@ -1,8 +1,6 @@
 package com.systemdesign.ecommerce_and_booking_system.movie_booking_system;
 
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.locks.*;
 import java.util.stream.*;
 import java.time.*;
 
@@ -11,8 +9,6 @@ import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.model.
 import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.model.Movie;
 import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.model.User;
 import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.strategies.payment.CreditCardPaymentStrategy;
-import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.strategies.payment.PaymentStrategy;
-import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.strategies.pricing.PricingStrategy;
 import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.strategies.pricing.WeekdayPricingStrategy;
 import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.model.Show;
 import com.systemdesign.ecommerce_and_booking_system.movie_booking_system.model.Screen;
